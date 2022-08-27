@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addListKontak, getListKontak } from "../../actions/kontakAct";
+import {
+  addListKontak,
+  getListKontak,
+  updateListKontak,
+} from "../../actions/kontakAct";
 
 export default function AddKontak() {
   const [nama, setNama] = useState("");
   const [nohp, setNohp] = useState("");
+  const [id, setId] = useState("");
+  const [mode, setMode] = useState("Add");
 
-  const { addKontakResult } = useSelector((state) => state.kontakReducers);
+  const { addKontakResult, detailKontakResult, updateKontakResult } =
+    useSelector((state) => state.kontakReducers);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addListKontak({ nama: nama, nohp: nohp }));
+    if (id) {
+      dispatch(updateListKontak({ id: id, nama: nama, nohp: nohp }));
+    } else {
+      dispatch(addListKontak({ nama: nama, nohp: nohp }));
+    }
   };
 
   useEffect(() => {
@@ -22,9 +33,29 @@ export default function AddKontak() {
       setNohp("");
     }
   }, [addKontakResult, dispatch]);
+
+  useEffect(() => {
+    if (updateKontakResult) {
+      dispatch(getListKontak());
+      setNama("");
+      setNohp("");
+      setId("");
+      setMode("add");
+    }
+  }, [updateKontakResult, dispatch]);
+
+  useEffect(() => {
+    if (detailKontakResult) {
+      setNama(detailKontakResult.nama);
+      setNohp(detailKontakResult.nohp);
+      setId(detailKontakResult.id);
+      setMode("Update");
+    }
+  }, [detailKontakResult, dispatch]);
+
   return (
     <div>
-      <h1>Add Kontak</h1>
+      <h1>{mode} Kontak</h1>
       <form onSubmit={(e) => handleSubmit(e)} autoComplete="off">
         <input
           type="text"

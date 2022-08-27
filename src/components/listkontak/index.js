@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getListKontak, delateKontak } from "../../actions/kontakAct";
+import {
+  getListKontak,
+  delateKontak,
+  detailKontak,
+} from "../../actions/kontakAct";
 
 export default function ListKontak() {
   const {
@@ -29,6 +33,12 @@ export default function ListKontak() {
                 Nama : {kontak.nama} - No HP : {kontak.nohp}
                 <button onClick={() => dispatch(delateKontak(kontak.id))}>
                   Hapus
+                </button>
+                <button
+                  onClick={() => dispatch(detailKontak(kontak))}
+                  style={{ marginLeft: "10px" }}
+                >
+                  Edit
                 </button>
               </p>
             </>

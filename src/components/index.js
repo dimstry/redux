@@ -1,5 +1,5 @@
 import listKontak from "./listkontak";
 import AddKontak from "./AddKontak";
-import { delateKontak } from "../actions/kontakAct";
+import { delateKontak, updateListKontak } from "../actions/kontakAct";
 
-export { listKontak, AddKontak, delateKontak };
+export { listKontak, AddKontak, delateKontak, updateListKontak };
