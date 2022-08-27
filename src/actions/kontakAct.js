@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const GET_LIST_KONTAK = "GET_LIST_KONTAK";
 export const ADD_KONTAK = "ADD_KONTAK";
+export const DELATE_KONTAK = "DELATE_KONTAK";
 
 export const getListKontak = () => {
   console.log("2. masuk action");
@@ -84,6 +85,49 @@ export const addListKontak = (data) => {
         // kalau gagal get api
         dispatch({
           type: ADD_KONTAK,
+          payload: {
+            loading: false,
+            data: false,
+            errorMassage: err.data,
+          },
+        });
+      });
+  };
+};
+export const delateKontak = (id) => {
+  return (dispatch) => {
+    // loading
+    dispatch({
+      type: DELATE_KONTAK,
+      payload: {
+        loading: true,
+        data: false,
+        errorMassage: false,
+      },
+    });
+    // get api
+    axios({
+      method: "DELETE",
+      url: "http://localhost:3000/kontak/" + id,
+      timeout: 120000,
+    })
+      .then((respone) => {
+        console.log("3. berhasil dapat data ", respone.data);
+        //berhasil get api
+        dispatch({
+          type: DELATE_KONTAK,
+          payload: {
+            loading: false,
+            data: respone.data,
+            errorMassage: false,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("3. gagal dapat data ", err);
+        // kalau gagal get api
+        dispatch({
+          type: DELATE_KONTAK,
           payload: {
             loading: false,
             data: false,

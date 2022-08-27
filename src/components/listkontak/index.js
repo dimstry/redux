@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getListKontak } from "../../actions/kontakAct";
+import { getListKontak, delateKontak } from "../../actions/kontakAct";
 
 export default function ListKontak() {
-  const { getListKontakResult, getListKontakLoading, getListKontakErr } =
-    useSelector((state) => state.kontakReducers);
+  const {
+    getListKontakResult,
+    getListKontakLoading,
+    getListKontakErr,
+    delateKontakResult,
+  } = useSelector((state) => state.kontakReducers);
 
   const dispatch = useDispatch();
 
@@ -12,7 +16,7 @@ export default function ListKontak() {
     // panggil action Ge list kontak
     console.log("1. use effect commponent did mount");
     dispatch(getListKontak());
-  }, [dispatch]);
+  }, [dispatch, delateKontakResult]);
   return (
     <div>
       <h3>List Kontak</h3>
@@ -20,9 +24,14 @@ export default function ListKontak() {
       {getListKontakResult ? (
         getListKontakResult.map((kontak) => {
           return (
-            <p key={kontak.id}>
-              Nama : {kontak.nama} - No HP : {kontak.nohp}
-            </p>
+            <>
+              <p key={kontak.id}>
+                Nama : {kontak.nama} - No HP : {kontak.nohp}
+                <button onClick={() => dispatch(delateKontak(kontak.id))}>
+                  Hapus
+                </button>
+              </p>
+            </>
           );
         })
       ) : getListKontakLoading ? (

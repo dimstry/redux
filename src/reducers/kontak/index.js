@@ -1,5 +1,6 @@
 import { GET_LIST_KONTAK } from "../../actions/kontakAct";
 import { ADD_KONTAK } from "../../actions/kontakAct";
+import { DELATE_KONTAK } from "../../actions/kontakAct";
 const initialState = {
   getListKontakResult: false,
   getListKontakLoading: false,
@@ -8,6 +9,10 @@ const initialState = {
   addKontakResult: false,
   addKontakLoading: false,
   addKontakErr: false,
+
+  delateKontakResult: false,
+  delateKontakLoading: false,
+  delateKontakErr: false,
 };
 
 const kontak = (state = initialState, action) => {
@@ -27,6 +32,15 @@ const kontak = (state = initialState, action) => {
         addKontakResult: action.payload.data,
         addKontakLoading: action.payload.loading,
         addKontakErr: action.payload.errorMassage,
+      };
+
+    case DELATE_KONTAK:
+      console.log("4. masuk reducers");
+      return {
+        ...state,
+        delateKontakResult: action.payload.data,
+        delateKontakLoading: action.payload.loading,
+        delateKontakErr: action.payload.errorMassage,
       };
     default:
       return state;
