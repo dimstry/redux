@@ -1,3 +1,4 @@
 import listKontak from "./listkontak";
+import AddKontak from "./AddKontak";
 
-export { listKontak };
+export { listKontak, AddKontak };
