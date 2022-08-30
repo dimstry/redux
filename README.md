@@ -5,4 +5,7 @@ Sebuah kontak app sederhana
 * 2.`json-server --watch db.json` Untuk menjalankan Json server .\
 jika belum punya JSON Server
 `npm install -g json-server`
-* 3.npm start di new terminal 
+* 3.di terminal baru `npm start` untuk menjalankan REACT JS
+
+## `💙`
+* K²H ♥️
